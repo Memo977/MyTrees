@@ -13,3 +13,7 @@ $routes->post('login', 'UsuarioController::authenticate');
 $routes->get('signup', 'UsuarioController::signup');
 $routes->post('signup', 'UsuarioController::register');
 $routes->get('logout', 'UsuarioController::logout');
+
+$routes->group('admin', ['filter' => 'auth:1'], function($routes) {
+    $routes->get('dashboard', 'DashboardController::index');
+});

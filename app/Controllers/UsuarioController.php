@@ -21,7 +21,7 @@ class UsuarioController extends BaseController
         if ($this->session->has('user_id')) {
             return $this->redirectBasedOnRole();
         }
-        return view('login'); // Cambiado de 'auth/login' a 'login'
+        return view('shared/Usuario/login');
     }
 
     public function authenticate()
@@ -42,7 +42,7 @@ class UsuarioController extends BaseController
             return $this->redirectBasedOnRole();
         }
         
-        return redirect()->to('/login')->with('error', 'Credenciales inválidas');
+        return redirect()->to(base_url('login'))->with('error', 'Credenciales inválidas');
     }
 
     public function signup()
@@ -50,7 +50,7 @@ class UsuarioController extends BaseController
         if ($this->session->has('user_id')) {
             return $this->redirectBasedOnRole();
         }
-        return view('signup'); // Cambiado de 'auth/signup' a 'signup'
+        return view('shared/Usuario/signup');
     }
 
     public function register()
@@ -70,26 +70,26 @@ class UsuarioController extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->usuarioModel->errors());
         }
 
-        return redirect()->to('/login')->with('message', 'Registro exitoso. Por favor, inicie sesión.');
+        return redirect()->to(base_url('login'))->with('message', 'Registro exitoso. Por favor, inicie sesión.');
     }
 
     public function logout()
     {
         $this->session->destroy();
-        return redirect()->to('/login');
+        return redirect()->to(base_url('login'));
     }
 
     protected function redirectBasedOnRole()
     {
         switch ($this->session->get('rol_id')) {
             case 1:
-                return redirect()->to('/admin/dashboard');
+                return redirect()->to(base_url('admin/dashboard'));
             case 2:
-                return redirect()->to('/operador/dashboard');
+                return redirect()->to(base_url('operador/dashboard'));
             case 3:
-                return redirect()->to('/amigo/dashboard');
+                return redirect()->to(base_url('amigo/dashboard'));
             default:
-                return redirect()->to('/login');
+                return redirect()->to(base_url('login'));
         }
     }
 }
