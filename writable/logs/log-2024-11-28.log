@@ -1,0 +1,16 @@
+ERROR - 2024-11-28 00:17:41 --> mysqli_sql_exception: Can't create table `proyecto`.`arboles` (errno: 150 "Foreign key constraint is incorrectly formed") in D:\Proyecto\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 D:\Proyecto\system\Database\MySQLi\Connection.php(312): mysqli->query('CREATE TABLE `a...', 0)
+#1 D:\Proyecto\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `a...')
+#2 D:\Proyecto\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `a...')
+#3 D:\Proyecto\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `a...')
+#4 D:\Proyecto\app\Database\Migrations\2024-11-27-014836_CreateArbolesTable.php(67): CodeIgniter\Database\Forge->createTable('arboles')
+#5 D:\Proyecto\system\Database\MigrationRunner.php(867): App\Database\Migrations\CreateArbolesTable->up()
+#6 D:\Proyecto\system\Database\MigrationRunner.php(183): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 D:\Proyecto\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 D:\Proyecto\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 D:\Proyecto\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 D:\Proyecto\system\Boot.php(351): CodeIgniter\CLI\Console->run()
+#11 D:\Proyecto\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 D:\Proyecto\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
