@@ -22,4 +22,10 @@ $routes->group('admin', ['filter' => 'auth:1'], function($routes) {
     $routes->get('especies/edit/(:num)', 'EspeciesController::edit/$1');
     $routes->post('especies/update/(:num)', 'EspeciesController::update/$1');
     $routes->get('especies/delete/(:num)', 'EspeciesController::delete/$1');
+    $routes->get('arboles', 'ArbolesController::index');
+    $routes->get('arboles/create', 'ArbolesController::create');
+    $routes->post('arboles', 'ArbolesController::store');
+    $routes->get('arboles/edit/(:num)', 'ArbolesController::edit/$1');
+    $routes->post('arboles/update/(:num)', 'ArbolesController::update/$1');
+    $routes->get('arboles/delete/(:num)', 'ArbolesController::delete/$1');
 });
