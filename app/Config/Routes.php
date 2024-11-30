@@ -28,4 +28,9 @@ $routes->group('admin', ['filter' => 'auth:1'], function($routes) {
     $routes->get('arboles/edit/(:num)', 'ArbolesController::edit/$1');
     $routes->post('arboles/update/(:num)', 'ArbolesController::update/$1');
     $routes->get('arboles/delete/(:num)', 'ArbolesController::delete/$1');
+    $routes->get('amigos', 'AmigoController::index');
+    $routes->get('amigos/arboles/(:num)', 'AmigoController::verArboles/$1');
+    $routes->get('amigos/actualizar-arbol/(:num)', 'AmigoController::actualizarArbol/$1');
+    $routes->post('amigos/actualizar-arboles', 'AmigoController::guardarActualizacion');
+    $routes->get('amigos/historial/(:num)', 'AmigoController::historial/$1');
 });
