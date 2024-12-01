@@ -34,4 +34,9 @@ $routes->group('admin', ['filter' => 'auth:1'], function($routes) {
     $routes->post('amigos/actualizar-arboles', 'AmigoController::guardarActualizacion');
     $routes->get('amigos/historial/(:num)', 'AmigoController::historial/$1');
     $routes->get('historial/index', 'HistorialController::index');
+    $routes->get('staff', 'UsuarioController::staffList');
+    $routes->get('staff/create', 'UsuarioController::createStaff');
+    $routes->get('staff/edit/(:num)', 'UsuarioController::editStaff/$1');
+    $routes->post('staff/edit/(:num)', 'UsuarioController::editStaff/$1');
+    $routes->get('staff/delete/(:num)', 'UsuarioController::deleteStaff/$1');
 });
