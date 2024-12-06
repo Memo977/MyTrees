@@ -180,7 +180,7 @@
     <div class="page-overlay"></div>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="<?= base_url('admin/dashboard') ?>">
+            <a class="navbar-brand" href="<?= base_url($baseRoute . '/dashboard') ?>">
                 <i class="bi bi-tree"></i> Un Millón de Árboles
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -189,22 +189,24 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/dashboard') ?>">
                             <i class="bi bi-speedometer2"></i> Dashboard
                         </a>
                     </li>
+                    <?php if($isAdmin): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/especies') ?>">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/especies') ?>">
                             <i class="bi bi-tree"></i> Especies
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?= base_url('admin/arboles') ?>">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/arboles') ?>">
                             <i class="bi bi-flower1"></i> Árboles
                         </a>
                     </li>
+                    <?php endif; ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/amigos') ?>">
+                        <a class="nav-link active" href="<?= base_url($baseRoute . '/amigos') ?>">
                             <i class="bi bi-people"></i> Amigos
                         </a>
                     </li>
@@ -226,7 +228,6 @@
         </div>
     </nav>
 
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -235,7 +236,7 @@
                         <h3 class="card-title">Registrar Actualización de Árbol</h3>
                     </div>
                     <div class="card-body">
-                        <?= form_open_multipart('admin/amigos/actualizar-arboles') ?>
+                        <?= form_open_multipart($baseRoute . '/amigos/actualizar-arboles') ?>
                         <input type="hidden" name="arbol_id" value="<?= $arbol['id'] ?>">
 
                         <div class="mb-3">
@@ -270,7 +271,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end gap-2">
-                            <a href="<?= site_url('admin/amigos/arboles/'.$arbol['usuario_id']) ?>"
+                            <a href="<?= base_url($baseRoute . '/amigos/arboles/'.$arbol['usuario_id']) ?>"
                                 class="btn btn-secondary">Cancelar</a>
                             <button type="submit" class="btn btn-primary">Guardar Actualización</button>
                         </div>

@@ -16,38 +16,44 @@ class AmigoController extends BaseController
         $this->arbolModel = new \App\Models\ArbolModel();
         $this->actualizacionModel = new \App\Models\ActualizacionModel();
         helper(['form']);
-    
-        
+    }
+
+    protected function prepareBaseData()
+    {
+        return [
+            'isAdmin' => session()->get('rol_id') == 1,
+            'baseRoute' => session()->get('rol_id') == 1 ? 'admin' : 'operador'
+        ];
     }
 
     public function index()
     {
-        // Lista todos los amigos (usuarios con rol_id = 3)
+        $data = $this->prepareBaseData();
         $data['amigos'] = $this->amigoModel->where('rol_id', 3)->orderBy('nombre', 'ASC')->findAll();
-        return view('admin/amigos/index', $data);
+        return view('shared/amigos/index', $data);
     }
 
     public function verArboles($id)
     {
+        $data = $this->prepareBaseData();
         $data['amigo'] = $this->amigoModel->find($id);
         
         if (!$data['amigo']) {
-            return redirect()->to('admin/amigos')->with('error', 'Amigo no encontrado');
+            return redirect()->to($data['baseRoute'] . '/amigos')->with('error', 'Amigo no encontrado');
         }
 
-        // Utilizamos el builder para hacer un JOIN con la tabla especies
         $builder = $this->arbolModel->builder();
         $builder->select('arboles.*, especies.nombre_comercial');
         $builder->join('especies', 'especies.id = arboles.especie_id');
         $builder->where('arboles.usuario_id', $id);
         
         $data['arboles'] = $builder->get()->getResultArray();
-
-        return view('admin/amigos/arboles', $data);
+        return view('shared/amigos/arboles', $data);
     }
 
     public function actualizarArbol($id)
     {
+        $data = $this->prepareBaseData();
         $builder = $this->arbolModel->builder();
         $builder->select('arboles.*, especies.nombre_comercial');
         $builder->join('especies', 'especies.id = arboles.especie_id');
@@ -59,11 +65,12 @@ class AmigoController extends BaseController
             return redirect()->back()->with('error', 'Árbol no encontrado');
         }
 
-        return view('admin/amigos/actualizar-arbol', $data);
+        return view('shared/amigos/actualizar-arbol', $data);
     }
 
     public function guardarActualizacion()
     {
+        $data = $this->prepareBaseData();
         $rules = [
             'arbol_id' => 'required|numeric',
             'tamanio' => 'required|numeric',
@@ -98,21 +105,20 @@ class AmigoController extends BaseController
     
         $this->actualizacionModel->insert($actualizacionData);
     
-        
         $this->arbolModel->update($actualizacionData['arbol_id'], [
             'tamanio' => $actualizacionData['tamanio_actual'],
             'estado' => $actualizacionData['estado']
         ]);
     
-
         $arbol = $this->arbolModel->find($arbol_id);
         
-        return redirect()->to(site_url('admin/amigos/arboles/' . $arbol['usuario_id']))
+        return redirect()->to(site_url($data['baseRoute'] . '/amigos/arboles/' . $arbol['usuario_id']))
                         ->with('success', 'Actualización registrada correctamente');
     }
 
     public function historial($id)
     {
+        $data = $this->prepareBaseData();
         $builder = $this->arbolModel->builder();
         $builder->select('arboles.*, especies.nombre_comercial, usuarios.nombre as amigo_nombre');
         $builder->join('especies', 'especies.id = arboles.especie_id');
@@ -130,6 +136,6 @@ class AmigoController extends BaseController
             ->orderBy('fecha_actualizacion', 'DESC')
             ->findAll();
 
-        return view('admin/amigos/historial', $data);
+        return view('shared/amigos/historial', $data);
     }
 }

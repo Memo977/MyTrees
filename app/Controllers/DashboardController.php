@@ -6,6 +6,14 @@ use App\Controllers\BaseController;
 
 class DashboardController extends BaseController
 {
+    protected function prepareBaseData()
+    {
+        return [
+            'isAdmin' => session()->get('rol_id') == 1,
+            'baseRoute' => session()->get('rol_id') == 1 ? 'admin' : 'operador'
+        ];
+    }
+
     public function index()
     {
         $session = session();
@@ -16,18 +24,21 @@ class DashboardController extends BaseController
             return redirect()->to('/unauthorized');
         }
 
+        // Preparar datos base (isAdmin y baseRoute)
+        $data = $this->prepareBaseData();
+
         // Estadísticas base (comunes para ambos roles)
-        $stats = [
+        $data['stats'] = [
             'amigos' => $db->table('usuarios')->where('rol_id', 3)->countAllResults(),
             'arboles_disponibles' => $db->table('arboles')->where('estado', 'Disponible')->countAllResults()
         ];
 
         // Agregar estadísticas adicionales para admin
-        if ($session->get('rol_id') == 1) {
-            $stats['arboles_vendidos'] = $db->table('arboles')->where('estado', 'Vendido')->countAllResults();
+        if ($data['isAdmin']) {
+            $data['stats']['arboles_vendidos'] = $db->table('arboles')->where('estado', 'Vendido')->countAllResults();
         }
 
         // Usar una única vista compartida
-        return view('shared/dashboard', ['stats' => $stats]);
+        return view('shared/dashboard', $data);
     }
 }

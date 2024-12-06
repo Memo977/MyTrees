@@ -14,10 +14,6 @@
 
 <body>
     <div class="page-overlay"></div>
-    <?php 
-    $isAdmin = session()->get('rol_id') == 1;
-    $baseRoute = $isAdmin ? 'admin' : 'operador';
-    ?>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
@@ -37,17 +33,17 @@
                     </li>
                     <?php if($isAdmin): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/especies') ?>">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/especies') ?>">
                             <i class="bi bi-tree"></i> Especies
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/arboles') ?>">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/arboles') ?>">
                             <i class="bi bi-flower1"></i> Árboles
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/amigos') ?>">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/amigos') ?>">
                             <i class="bi bi-people"></i> Amigos
                         </a>
                     </li>
@@ -131,7 +127,7 @@
             <?php if($isAdmin): ?>
             <!-- Accesos para Admin -->
             <div class="col-md-3 mb-4">
-                <a href="<?= base_url('admin/staff') ?>" class="text-decoration-none">
+                <a href="<?= base_url($baseRoute . '/staff') ?>" class="text-decoration-none">
                     <div class="card h-100">
                         <div class="card-body text-center">
                             <i class="bi bi-person-badge text-info fs-1"></i>
@@ -142,7 +138,7 @@
             </div>
 
             <div class="col-md-3 mb-4">
-                <a href="<?= base_url('admin/especies') ?>" class="text-decoration-none">
+                <a href="<?= base_url($baseRoute . '/especies') ?>" class="text-decoration-none">
                     <div class="card h-100">
                         <div class="card-body text-center">
                             <i class="bi bi-tree text-success fs-1"></i>
@@ -153,7 +149,7 @@
             </div>
 
             <div class="col-md-3 mb-4">
-                <a href="<?= base_url('admin/arboles') ?>" class="text-decoration-none">
+                <a href="<?= base_url($baseRoute . '/arboles') ?>" class="text-decoration-none">
                     <div class="card h-100">
                         <div class="card-body text-center">
                             <i class="bi bi-flower1 text-danger fs-1"></i>
@@ -164,7 +160,7 @@
             </div>
 
             <div class="col-md-3 mb-4">
-                <a href="<?= base_url('admin/amigos') ?>" class="text-decoration-none">
+                <a href="<?= base_url($baseRoute . '/amigos') ?>" class="text-decoration-none">
                     <div class="card h-100">
                         <div class="card-body text-center">
                             <i class="bi bi-people text-primary fs-1"></i>
@@ -177,7 +173,7 @@
             <?php else: ?>
             <!-- Accesos para Operador -->
             <div class="col-md-6 mb-4">
-                <a href="<?= base_url('operador/amigos/actualizar-arbol') ?>" class="text-decoration-none">
+                <a href="<?= base_url($baseRoute . '/amigos') ?>" class="text-decoration-none">
                     <div class="card h-100">
                         <div class="card-body text-center">
                             <i class="bi bi-pencil-square text-primary fs-1"></i>

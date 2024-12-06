@@ -44,6 +44,11 @@ $routes->group('admin', ['filter' => 'auth:1'], function($routes) {
 $routes->group('operador', ['filter' => 'auth:2'], function($routes) {
     $routes->get('dashboard', 'DashboardController::index');
     $routes->get('historial', 'HistorialController::index');
+    $routes->get('amigos', 'AmigoController::index');
+    $routes->get('amigos/arboles/(:num)', 'AmigoController::verArboles/$1');
+    $routes->get('amigos/actualizar-arbol/(:num)', 'AmigoController::actualizarArbol/$1');
+    $routes->post('amigos/actualizar-arboles', 'AmigoController::guardarActualizacion');
+    $routes->get('amigos/historial/(:num)', 'AmigoController::historial/$1');
 });
 
 $routes->group('', ['filter' => 'auth:1,2'], function($routes) {

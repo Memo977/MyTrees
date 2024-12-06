@@ -129,52 +129,18 @@
         margin-right: 0.25rem;
     }
 
-    .img-thumbnail {
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        transition: transform 0.3s ease;
+    .btn-info {
+        background-color: rgba(23, 162, 184, 0.9);
+        border-color: transparent;
+        color: white;
+        transition: all 0.3s ease;
     }
 
-    .img-thumbnail:hover {
-        transform: scale(1.1);
-    }
-
-    .badge {
-        padding: 0.5em 0.8em;
-        font-weight: 500;
-        color: #ffffff;
-    }
-
-    .badge.bg-success {
-        background-color: rgba(40, 167, 69, 0.9) !important;
-    }
-
-    .badge.bg-secondary {
-        background-color: rgba(108, 117, 125, 0.9) !important;
-    }
-
-    .page-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
-        pointer-events: none;
-        z-index: -1;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .btn-info:hover {
+        background-color: rgba(19, 132, 150, 0.95);
+        border-color: transparent;
+        color: white;
+        transform: translateY(-2px);
     }
 
     .navbar {
@@ -198,7 +164,7 @@
     <div class="page-overlay"></div>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="<?= base_url('admin/dashboard') ?>">
+            <a class="navbar-brand" href="<?= base_url($baseRoute . '/dashboard') ?>">
                 <i class="bi bi-tree"></i> Un Millón de Árboles
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -207,22 +173,24 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/dashboard') ?>">
                             <i class="bi bi-speedometer2"></i> Dashboard
                         </a>
                     </li>
+                    <?php if($isAdmin): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/especies') ?>">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/especies') ?>">
                             <i class="bi bi-tree"></i> Especies
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?= base_url('admin/arboles') ?>">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/arboles') ?>">
                             <i class="bi bi-flower1"></i> Árboles
                         </a>
                     </li>
+                    <?php endif; ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/amigos') ?>">
+                        <a class="nav-link active" href="<?= base_url($baseRoute . '/amigos') ?>">
                             <i class="bi bi-people"></i> Amigos
                         </a>
                     </li>
@@ -250,7 +218,7 @@
                 <div class="buttons-container">
                     <h2>Árboles de <?= esc($amigo['nombre']) ?></h2>
                 </div>
-                <a href="<?= site_url('admin/amigos') ?>" class="btn btn-secondary">
+                <a href="<?= base_url($baseRoute . '/amigos') ?>" class="btn btn-secondary">
                     <i class="bi bi-arrow-left"></i> Volver
                 </a>
             </div>
@@ -292,15 +260,18 @@
                                 <td><?= esc($arbol['estado']) ?></td>
                                 <td><?= esc($arbol['tamanio']) ?> m</td>
                                 <td>
-                                    <a href="<?= site_url('admin/arboles/edit/'.$arbol['id'].'?from=amigos&usuario_id='.$amigo['id']) ?>"
+                                    <?php if($isAdmin): ?>
+                                    <a href="<?= base_url($baseRoute . '/arboles/edit/'.$arbol['id'].'?from=amigos&usuario_id='.$amigo['id']) ?>"
                                         class="btn btn-primary btn-sm me-1">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="<?= site_url('admin/amigos/actualizar-arbol/'.$arbol['id']) ?>"
+                                    <?php endif; ?>
+
+                                    <a href="<?= base_url($baseRoute . '/amigos/actualizar-arbol/'.$arbol['id']) ?>"
                                         class="btn btn-info btn-sm me-1">
                                         <i class="bi bi-arrow-clockwise"></i>
                                     </a>
-                                    <a href="<?= site_url('admin/amigos/historial/'.$arbol['id']) ?>"
+                                    <a href="<?= base_url($baseRoute . '/amigos/historial/'.$arbol['id']) ?>"
                                         class="btn btn-secondary btn-sm">
                                         <i class="bi bi-clock-history"></i>
                                     </a>
