@@ -21,7 +21,7 @@ class UsuarioController extends BaseController
         if ($this->session->has('user_id')) {
             return $this->redirectBasedOnRole();
         }
-        return view('auth/login');
+        return view('shared/Usuario/login');
     }
 
     public function authenticate()
@@ -50,13 +50,11 @@ class UsuarioController extends BaseController
         if ($this->session->has('user_id')) {
             return $this->redirectBasedOnRole();
         }
-        return view('auth/signup');
+        return view('shared/Usuario/signup');
     }
 
     public function register()
     {
-        // Si viene de la vista staff, usará el rol_id del formulario
-        // Si no, será rol_id = 3 (Amigo)
         $isStaffRegistration = $this->request->getPost('is_staff_registration');
         
         $data = [
@@ -74,12 +72,10 @@ class UsuarioController extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->usuarioModel->errors());
         }
 
-        // Si es registro de staff, redirigir al listado de staff
         if ($isStaffRegistration) {
             return redirect()->to('/admin/staff')->with('message', 'Usuario staff creado exitosamente');
         }
 
-        // Si es registro normal, redirigir al login
         return redirect()->to('/login')->with('message', 'Registro exitoso. Por favor, inicie sesión.');
     }
 
@@ -105,7 +101,6 @@ class UsuarioController extends BaseController
         return view('admin/staff/create');
     }
     
-    
     public function deleteStaff($id)
     {
         if ($this->session->get('rol_id') != 1 || $id == $this->session->get('user_id')) {
@@ -123,7 +118,7 @@ class UsuarioController extends BaseController
     public function logout()
     {
         $this->session->destroy();
-        return redirect()->to('/login');
+        return redirect()->to('/login'); // Corregido también aquí
     }
 
     protected function redirectBasedOnRole()

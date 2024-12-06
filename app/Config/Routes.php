@@ -40,3 +40,11 @@ $routes->group('admin', ['filter' => 'auth:1'], function($routes) {
     $routes->post('staff/edit/(:num)', 'UsuarioController::editStaff/$1');
     $routes->get('staff/delete/(:num)', 'UsuarioController::deleteStaff/$1');
 });
+
+$routes->group('operador', ['filter' => 'auth:2'], function($routes) {
+    $routes->get('dashboard', 'DashboardController::index');
+});
+
+$routes->group('', ['filter' => 'auth:1,2'], function($routes) {
+    $routes->get('shared/Historial/index', 'HistorialController::index');
+});
