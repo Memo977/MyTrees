@@ -164,10 +164,14 @@
 </head>
 
 <body>
+    <?php 
+    $isAdmin = session()->get('rol_id') == 1;
+    $baseRoute = $isAdmin ? 'admin' : 'operador';
+    ?>
     <div class="page-overlay"></div>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="<?= base_url('admin/dashboard') ?>">
+            <a class="navbar-brand" href="<?= base_url($baseRoute . '/dashboard') ?>">
                 <i class="bi bi-tree"></i> Un Millón de Árboles
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -176,10 +180,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/dashboard') ?>">
                             <i class="bi bi-speedometer2"></i> Dashboard
                         </a>
                     </li>
+                    <?php if($isAdmin): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('admin/especies') ?>">
                             <i class="bi bi-tree"></i> Especies
@@ -195,6 +200,13 @@
                             <i class="bi bi-people"></i> Amigos
                         </a>
                     </li>
+                    <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url($baseRoute . '/historial') ?>">
+                            <i class="bi bi-clock-history"></i> Historial de Árboles
+                        </a>
+                    </li>
+                    <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
@@ -219,7 +231,7 @@
                 <div>
                     <h2>Actualizaciones Globales de Árboles</h2>
                 </div>
-                <a href="<?= site_url('admin/dashboard') ?>" class="btn btn-secondary">
+                <a href="<?= base_url($baseRoute . '/dashboard') ?>" class="btn btn-secondary">
                     <i class="bi bi-arrow-left"></i> Volver
                 </a>
             </div>

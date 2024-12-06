@@ -11,24 +11,23 @@ class DashboardController extends BaseController
         $session = session();
         $db = \Config\Database::connect();
         
-        // Verificar el rol y mostrar el dashboard correspondiente
-        if ($session->get('rol_id') == 1) {
-            $stats = [
-                'amigos' => $db->table('usuarios')->where('rol_id', 3)->countAllResults(),
-                'arboles_disponibles' => $db->table('arboles')->where('estado', 'Disponible')->countAllResults(),
-                'arboles_vendidos' => $db->table('arboles')->where('estado', 'Vendido')->countAllResults()
-            ];
-            return view('admin/dashboard', ['stats' => $stats]);
-        } 
-        elseif ($session->get('rol_id') == 2) {
-            // Estadísticas específicas para operador
-            $stats = [
-                'amigos' => $db->table('usuarios')->where('rol_id', 3)->countAllResults(),
-                'arboles_disponibles' => $db->table('arboles')->where('estado', 'Disponible')->countAllResults()
-            ];
-            return view('operario/dashboard', ['stats' => $stats]);
+        // Verificar si el usuario está autorizado
+        if (!in_array($session->get('rol_id'), [1, 2])) {
+            return redirect()->to('/unauthorized');
         }
-        
-        return redirect()->to('/unauthorized');
+
+        // Estadísticas base (comunes para ambos roles)
+        $stats = [
+            'amigos' => $db->table('usuarios')->where('rol_id', 3)->countAllResults(),
+            'arboles_disponibles' => $db->table('arboles')->where('estado', 'Disponible')->countAllResults()
+        ];
+
+        // Agregar estadísticas adicionales para admin
+        if ($session->get('rol_id') == 1) {
+            $stats['arboles_vendidos'] = $db->table('arboles')->where('estado', 'Vendido')->countAllResults();
+        }
+
+        // Usar una única vista compartida
+        return view('shared/dashboard', ['stats' => $stats]);
     }
 }
