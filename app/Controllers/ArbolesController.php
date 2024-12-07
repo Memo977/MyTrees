@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\ArbolModel;
 use App\Models\EspecieModel;
+use App\Models\ActualizacionModel;
 use App\Models\UsuarioModel;
 
 class ArbolesController extends BaseController
@@ -12,6 +13,7 @@ class ArbolesController extends BaseController
     protected $arbolModel;
     protected $especieModel;
     protected $usuarioModel;
+    protected $actualizacionModel;
     protected $session;
 
     public function __construct()
@@ -19,11 +21,11 @@ class ArbolesController extends BaseController
         $this->arbolModel = new ArbolModel();
         $this->especieModel = new EspecieModel();
         $this->usuarioModel = new UsuarioModel();
+        $this->actualizacionModel = new ActualizacionModel();
         $this->session = session();
         helper(['form']);
     }
 
-    // Métodos para Admin
     public function index()
     {
         $data = [
@@ -44,7 +46,7 @@ class ArbolesController extends BaseController
     public function store()
     {
         $rules = $this->arbolModel->validationRules;
-        
+
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -80,9 +82,11 @@ class ArbolesController extends BaseController
             return redirect()->to('admin/arboles')->with('error', 'Árbol no encontrado');
         }
 
+        // Obtener los parámetros de la URL
         $from = $this->request->getGet('from');
         $usuario_id = $this->request->getGet('usuario_id');
 
+        // Construir la URL de redirección
         $redirect_to = 'admin/arboles';
         if ($from === 'amigos' && $usuario_id) {
             $redirect_to = "admin/amigos/arboles/{$usuario_id}";
@@ -100,7 +104,7 @@ class ArbolesController extends BaseController
     public function update($id = null)
     {
         $rules = $this->arbolModel->validationRules;
-        
+
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -118,6 +122,7 @@ class ArbolesController extends BaseController
             $photo->move(ROOTPATH . 'public/uploads/arboles', $newName);
             $data['foto_url'] = $newName;
 
+            // Eliminar foto anterior
             $oldTree = $this->arbolModel->find($id);
             if ($oldTree && !empty($oldTree['foto_url'])) {
                 $oldPhotoPath = ROOTPATH . 'public/uploads/arboles/' . $oldTree['foto_url'];
@@ -128,6 +133,7 @@ class ArbolesController extends BaseController
         }
 
         if ($this->arbolModel->update($id, $data)) {
+            // Obtener la URL de redirección del formulario
             $redirect_to = $this->request->getPost('redirect_to') ?? 'admin/arboles';
             return redirect()->to($redirect_to)->with('success', 'Árbol actualizado exitosamente');
         }
@@ -139,6 +145,7 @@ class ArbolesController extends BaseController
     {
         $tree = $this->arbolModel->find($id);
         if ($tree) {
+            // Verificamos si el árbol tiene un usuario asociado
             $usuario = $this->usuarioModel->where('id', $tree['usuario_id'])->first();
             if ($usuario) {
                 return redirect()->to('admin/arboles')->with('error', 'No se puede eliminar el árbol porque tiene un usuario asociado.');
@@ -159,97 +166,56 @@ class ArbolesController extends BaseController
         return redirect()->to('admin/arboles')->with('error', 'Error al eliminar el árbol');
     }
 
-    // Métodos para Amigo
+
+    // Método para listar los árboles del usuario
     public function misArboles()
     {
         $usuario_id = $this->session->get('user_id');
-        
+
+        // Obtener los árboles del usuario con información de la especie
         $data = [
-            'trees' => $this->arbolModel->getTreesByUser($usuario_id),
-            'species' => $this->especieModel->findAll()
+            'trees' => $this->arbolModel->select('arboles.*, especies.nombre_comercial')
+                ->join('especies', 'especies.id = arboles.especie_id')
+                ->where('arboles.usuario_id', $usuario_id)
+                ->where('arboles.estado', 'Vendido')
+                ->findAll()
         ];
-        
+
         return view('amigo/arboles/index', $data);
     }
 
-    public function disponibles()
-    {
-        $data = [
-            'trees' => $this->arbolModel->where('estado', 'Disponible')
-                                      ->where('usuario_id IS NULL')
-                                      ->findAll(),
-            'species' => $this->especieModel->findAll()
-        ];
-        
-        return view('amigo/arboles/disponibles', $data);
-    }
-
-    public function detalle($id)
+    // Método para ver el detalle de un árbol específico
+    public function detalle($id = null)
     {
         $usuario_id = $this->session->get('user_id');
-        $tree = $this->arbolModel->getTree($id);
-        
-        if (!$tree) {
-            return redirect()->back()->with('error', 'Árbol no encontrado');
+
+        // Obtener el árbol con información de la especie
+        $arbol = $this->arbolModel->select('arboles.*, especies.nombre_comercial, especies.nombre_cientifico')
+            ->join('especies', 'especies.id = arboles.especie_id')
+            ->where('arboles.id', $id)
+            ->where('arboles.usuario_id', $usuario_id)
+            ->first();
+
+        // Verificar si el árbol existe y pertenece al usuario
+        if (!$arbol) {
+            return redirect()->to('amigo/arboles')
+                ->with('error', 'Árbol no encontrado o no tienes permiso para verlo');
         }
 
-        // Verificar que el árbol pertenezca al usuario o esté disponible
-        if ($tree['usuario_id'] != $usuario_id && $tree['estado'] != 'Disponible') {
-            return redirect()->back()->with('error', 'No tiene acceso a este árbol');
-        }
+        // Obtener el historial de actualizaciones del árbol
+        $historial = $this->actualizacionModel->where('arbol_id', $id)
+            ->orderBy('fecha_actualizacion', 'DESC')
+            ->findAll();
 
         $data = [
-            'tree' => $tree,
-            'species' => $this->especieModel->findAll(),
-            'historial' => $this->arbolModel->getTreeHistory($id)
+            'arbol' => $arbol,
+            'historial' => $historial
         ];
 
         return view('amigo/arboles/detalle', $data);
     }
 
-    public function comprar($id)
-    {
-        $tree = $this->arbolModel->find($id);
-        
-        if (!$tree || $tree['estado'] !== 'Disponible' || !empty($tree['usuario_id'])) {
-            return redirect()->back()->with('error', 'Este árbol no está disponible para compra');
-        }
-
-        $data = [
-            'tree' => $tree,
-            'especie' => $this->especieModel->find($tree['especie_id'])
-        ];
-
-        return view('amigo/arboles/comprar', $data);
-    }
-
-    public function confirmarCompra()
-    {
-        $arbol_id = $this->request->getPost('arbol_id');
-        $usuario_id = $this->session->get('user_id');
-
-        $tree = $this->arbolModel->find($arbol_id);
-        
-        if (!$tree || $tree['estado'] !== 'Disponible' || !empty($tree['usuario_id'])) {
-            return redirect()->back()->with('error', 'Este árbol no está disponible para compra');
-        }
-
-        $data = [
-            'estado' => 'Vendido',
-            'usuario_id' => $usuario_id,
-            'fecha_venta' => date('Y-m-d H:i:s')
-        ];
-
-        if ($this->arbolModel->update($arbol_id, $data)) {
-            // Registrar la compra en el historial
-            $this->arbolModel->registrarHistorial($arbol_id, 'Compra', 'Árbol adquirido por el usuario');
-            return redirect()->to('amigo/arboles')->with('success', 'Árbol comprado exitosamente');
-        }
-
-        return redirect()->back()->with('error', 'Error al procesar la compra');
-    }
-
-    // Método compartido para obtener imágenes de árboles
+    // Método auxiliar para mostrar imágenes
     public function getImage($filename)
     {
         if (!empty($filename)) {
@@ -262,7 +228,7 @@ class ArbolesController extends BaseController
                 exit;
             }
         }
-        
+
         // Imagen por defecto si no se encuentra la solicitada
         $defaultPath = ROOTPATH . 'public/assets/img/tree-default.jpg';
         $mime = mime_content_type($defaultPath);

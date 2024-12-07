@@ -211,10 +211,11 @@
         </div>
 
         <!-- Accesos Rápidos -->
+        <!-- Accesos Rápidos -->
         <div class="row mt-4">
             <div class="col-12">
                 <h2 class="mb-4 text-white">
-                    <?= $isAdmin ? 'Accesos Rápidos' : ($isAmigo ? 'Accesos Rápidos' : 'Acciones Rápidas') ?>
+                    <?= $isAdmin || !$isAmigo ? 'Accesos Rápidos' : 'Acciones Rápidas' ?>
                 </h2>
             </div>
 
@@ -259,6 +260,21 @@
                         <div class="card-body text-center">
                             <i class="bi bi-people text-primary fs-1"></i>
                             <h5 class="card-title mt-3">Ver Amigos</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Acceso Rápido de Ver Historial (común para Admin y Operador) -->
+            <div class="col-md-<?= $isAdmin ? '3' : '6' ?> mb-4">
+                <a href="<?= base_url($baseRoute . '/historial') ?>" class="text-decoration-none">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-clock-history text-warning fs-1"></i>
+                            <h5 class="card-title mt-3">Ver Historial</h5>
+                            <?php if(!$isAdmin): ?>
+                            <p class="card-text">Consultar historial de actualizaciones</p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </a>
@@ -313,6 +329,7 @@
                 </a>
             </div>
 
+            <!-- Acceso Rápido de Ver Historial (común para Admin y Operador) -->
             <div class="col-md-6 mb-4">
                 <a href="<?= base_url($baseRoute . '/historial') ?>" class="text-decoration-none">
                     <div class="card h-100">

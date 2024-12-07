@@ -53,6 +53,8 @@ $routes->group('operador', ['filter' => 'auth:2'], function($routes) {
 
 $routes->group('amigo', ['filter' => 'auth:3'], function($routes) {
     $routes->get('dashboard', 'DashboardController::index');
+    $routes->get('arboles', 'ArbolesController::misArboles');
+    $routes->get('arboles/detalle/(:num)', 'ArbolesController::detalle/$1');
 });
 
 $routes->group('', ['filter' => 'auth:1,2'], function($routes) {
@@ -62,4 +64,8 @@ $routes->group('', ['filter' => 'auth:1,2'], function($routes) {
 
 $routes->get('shared/unauthorized/index', function() {
     return view('shared/unauthorized/index');
+});
+
+$routes->set404Override(function() {
+    return view('shared/errores/404');
 });
