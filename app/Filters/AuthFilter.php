@@ -21,12 +21,16 @@ class AuthFilter implements FilterInterface
         $currentPath = $request->getUri()->getPath();
         $rolId = (int)$session->get('rol_id');
     
-        // Bloquear acceso cruzado de rutas admin/operador
-        if (strpos($currentPath, 'operador/') === 0 && $rolId === 1) {
+        // Bloquear acceso cruzado de rutas
+        if (strpos($currentPath, 'admin/') === 0 && $rolId !== 1) {
             return redirect()->to(base_url('shared/unauthorized/index'));
         }
         
-        if (strpos($currentPath, 'admin/') === 0 && $rolId === 2) {
+        if (strpos($currentPath, 'operador/') === 0 && $rolId !== 2) {
+            return redirect()->to(base_url('shared/unauthorized/index'));
+        }
+
+        if (strpos($currentPath, 'amigo/') === 0 && $rolId !== 3) {
             return redirect()->to(base_url('shared/unauthorized/index'));
         }
     

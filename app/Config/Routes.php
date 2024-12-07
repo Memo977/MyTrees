@@ -51,6 +51,10 @@ $routes->group('operador', ['filter' => 'auth:2'], function($routes) {
     $routes->get('amigos/historial/(:num)', 'AmigoController::historial/$1');
 });
 
+$routes->group('amigo', ['filter' => 'auth:3'], function($routes) {
+    $routes->get('dashboard', 'DashboardController::index');
+});
+
 $routes->group('', ['filter' => 'auth:1,2'], function($routes) {
     $routes->get('historial', 'HistorialController::index');
 
