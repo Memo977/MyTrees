@@ -55,3 +55,7 @@ $routes->group('', ['filter' => 'auth:1,2'], function($routes) {
     $routes->get('historial', 'HistorialController::index');
 
 });
+
+$routes->get('shared/unauthorized/index', function() {
+    return view('shared/unauthorized/index');
+});

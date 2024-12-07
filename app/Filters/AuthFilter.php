@@ -12,33 +12,36 @@ class AuthFilter implements FilterInterface
     {
         $session = session();
         
-        // Verificar si el usuario está logueado
         if (!$session->get('isLoggedIn')) {
             return redirect()
                 ->to(base_url('login'))
                 ->with('error', 'Por favor, inicie sesión para acceder a esta sección.');
         }
-
-        // Verificar los roles si se proporcionan argumentos
+    
+        $currentPath = $request->getUri()->getPath();
+        $rolId = (int)$session->get('rol_id');
+    
+        // Bloquear acceso cruzado de rutas admin/operador
+        if (strpos($currentPath, 'operador/') === 0 && $rolId === 1) {
+            return redirect()->to(base_url('shared/unauthorized/index'));
+        }
+        
+        if (strpos($currentPath, 'admin/') === 0 && $rolId === 2) {
+            return redirect()->to(base_url('shared/unauthorized/index'));
+        }
+    
         if (!empty($arguments)) {
-            $rolId = (int)$session->get('rol_id');
-            
-            // Convertir los argumentos a enteros para comparación
             $allowedRoles = array_map('intval', $arguments);
-            
             if (!in_array($rolId, $allowedRoles, true)) {
-                return redirect()
-                    ->to(base_url('dashboard'))
-                    ->with('error', 'No tiene permisos para acceder a esta sección.');
+                return redirect()->to(base_url('shared/unauthorized/index'));
             }
         }
-
+    
         return $request;
     }
-
+    
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        // No necesitamos realizar ninguna acción después de la solicitud
         return $response;
     }
 }
