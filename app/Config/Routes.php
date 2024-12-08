@@ -61,11 +61,6 @@ $routes->group('amigo', ['filter' => 'auth:3'], function($routes) {
     
 });
 
-$routes->group('', ['filter' => 'auth:1,2'], function($routes) {
-    $routes->get('historial', 'HistorialController::index');
-
-});
-
 $routes->get('shared/unauthorized/index', function() {
     return view('shared/unauthorized/index');
 });
