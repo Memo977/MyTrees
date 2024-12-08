@@ -237,4 +237,72 @@ class ArbolesController extends BaseController
         readfile($defaultPath);
         exit;
     }
+
+    // Método para mostrar árboles disponibles para compra
+    public function disponibles()
+    {
+        // Obtener los árboles disponibles con información de la especie
+        $data = [
+            'trees' => $this->arbolModel->select('arboles.*, especies.nombre_comercial, especies.nombre_cientifico')
+                ->join('especies', 'especies.id = arboles.especie_id')
+                ->where('arboles.estado', 'Disponible')
+                ->where('arboles.usuario_id IS NULL')
+                ->findAll()
+        ];
+
+        return view('amigo/arboles/disponibles', $data);
+    }
+
+    // Método para mostrar formulario de compra
+    public function comprar($id = null)
+    {
+        // Obtener el árbol con información de la especie
+        $arbol = $this->arbolModel->select('arboles.*, especies.nombre_comercial, especies.nombre_cientifico')
+            ->join('especies', 'especies.id = arboles.especie_id')
+            ->where('arboles.id', $id)
+            ->where('arboles.estado', 'Disponible')
+            ->where('arboles.usuario_id IS NULL')
+            ->first();
+
+        // Verificar si el árbol existe y está disponible
+        if (!$arbol) {
+            return redirect()->to('amigo/arboles/disponibles')
+                ->with('error', 'Árbol no disponible para compra');
+        }
+
+        $data = [
+            'arbol' => $arbol
+        ];
+
+        return view('amigo/arboles/comprar', $data);
+    }
+
+    // Método para procesar la compra
+    public function confirmarCompra()
+    {
+        $arbol_id = $this->request->getPost('arbol_id');
+        $usuario_id = $this->session->get('user_id');
+
+        // Verificar que el árbol exista y esté disponible
+        $arbol = $this->arbolModel->select('*')
+            ->where('id', $arbol_id)
+            ->where('estado', 'Disponible')
+            ->where('usuario_id IS NULL')
+            ->first();
+
+        if (!$arbol) {
+            return redirect()->to('amigo/arboles/disponibles')
+                ->with('error', 'El árbol ya no está disponible para compra');
+        }
+
+        // Actualizar el árbol
+        $this->arbolModel->update($arbol_id, [
+            'estado' => 'Vendido',
+            'usuario_id' => $usuario_id,
+            'fecha_venta' => date('Y-m-d H:i:s')
+        ]);
+
+        return redirect()->to('amigo/arboles')
+            ->with('success', 'Árbol comprado exitosamente');
+    }
 }

@@ -294,7 +294,7 @@
             </div>
 
             <div class="col-md-4 mb-4">
-                <a href="<?= base_url($baseRoute . '/arboles-disponibles') ?>" class="text-decoration-none">
+                <a href="<?= base_url($baseRoute . '/arboles/disponibles') ?>" class="text-decoration-none">
                     <div class="card h-100">
                         <div class="card-body text-center">
                             <i class="bi bi-shop text-primary fs-1"></i>

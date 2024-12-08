@@ -55,6 +55,10 @@ $routes->group('amigo', ['filter' => 'auth:3'], function($routes) {
     $routes->get('dashboard', 'DashboardController::index');
     $routes->get('arboles', 'ArbolesController::misArboles');
     $routes->get('arboles/detalle/(:num)', 'ArbolesController::detalle/$1');
+    $routes->get('arboles/disponibles', 'ArbolesController::disponibles');
+    $routes->get('arboles/comprar/(:num)', 'ArbolesController::comprar/$1');
+    $routes->post('arboles/confirmar-compra', 'ArbolesController::confirmarCompra');
+    
 });
 
 $routes->group('', ['filter' => 'auth:1,2'], function($routes) {
