@@ -28,9 +28,9 @@ class UsuarioController extends BaseController
     {
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
-        
+
         $user = $this->usuarioModel->findByEmail($email);
-        
+
         if ($user && $this->usuarioModel->verifyPassword($password, $user['password'])) {
             $this->session->set([
                 'user_id' => $user['id'],
@@ -38,10 +38,10 @@ class UsuarioController extends BaseController
                 'nombre' => $user['nombre'],
                 'isLoggedIn' => true
             ]);
-            
+
             return $this->redirectBasedOnRole();
         }
-        
+
         return redirect()->to('/login')->with('error', 'Credenciales inválidas');
     }
 
@@ -56,7 +56,7 @@ class UsuarioController extends BaseController
     public function register()
     {
         $isStaffRegistration = $this->request->getPost('is_staff_registration');
-        
+
         $data = [
             'nombre' => $this->request->getPost('nombre'),
             'apellidos' => $this->request->getPost('apellidos'),
@@ -89,7 +89,7 @@ class UsuarioController extends BaseController
             'usuarios' => $this->usuarioModel->where('rol_id !=', 3)->findAll(),
             'current_user_id' => $this->session->get('user_id')
         ];
-        
+
         return view('admin/staff/list', $data);
     }
 
@@ -100,7 +100,7 @@ class UsuarioController extends BaseController
         }
         return view('admin/staff/create');
     }
-    
+
     public function deleteStaff($id)
     {
         if ($this->session->get('rol_id') != 1 || $id == $this->session->get('user_id')) {
@@ -121,6 +121,61 @@ class UsuarioController extends BaseController
         return redirect()->to('/login'); // Corregido también aquí
     }
 
+    public function edit($id)
+    {
+        if ($this->session->get('rol_id') != 1) {
+            return redirect()->to('/dashboard');
+        }
+
+        $usuario = $this->usuarioModel->find($id);
+
+        if (!$usuario || $usuario['rol_id'] == 3) {
+            return redirect()->to('/admin/staff')->with('message', 'Usuario no encontrado o no permitido');
+        }
+
+        $data = [
+            'usuario' => $usuario
+        ];
+
+        return view('admin/staff/edit', $data);
+    }
+
+    public function update($id)
+    {
+        if ($this->session->get('rol_id') != 1) {
+            return redirect()->to('/dashboard');
+        }
+
+        $usuario = $this->usuarioModel->find($id);
+
+        if (!$usuario || $usuario['rol_id'] == 3) {
+            return redirect()->to('/admin/staff')
+                ->with('message', 'Usuario no encontrado o no permitido');
+        }
+
+        $data = [
+            'nombre' => $this->request->getPost('nombre'),
+            'apellidos' => $this->request->getPost('apellidos'),
+            'email' => $this->request->getPost('email'),
+            'telefono' => $this->request->getPost('telefono'),
+            'rol_id' => $this->request->getPost('rol_id'),
+            'pais' => $this->request->getPost('pais'),
+            'direccion' => $this->request->getPost('direccion')
+        ];
+
+        if ($this->request->getPost('password')) {
+            $data['password'] = $this->request->getPost('password');
+        }
+
+        if (!$this->usuarioModel->updateUser($id, $data)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->usuarioModel->errors());
+        }
+
+        return redirect()->to('/admin/staff')
+            ->with('message', 'Usuario actualizado exitosamente');
+    }
     protected function redirectBasedOnRole()
     {
         switch ($this->session->get('rol_id')) {

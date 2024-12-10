@@ -39,7 +39,6 @@
     .error-icon {
         font-size: 4rem;
         color: #ffc107;
-        /* Color amarillo para distinguirlo del error de unauthorized */
         margin-bottom: 1rem;
     }
 

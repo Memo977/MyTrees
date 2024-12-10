@@ -164,7 +164,7 @@
 </head>
 
 <body>
-    <?php 
+    <?php
     $isAdmin = session()->get('rol_id') == 1;
     $baseRoute = $isAdmin ? 'admin' : 'operador';
     ?>
@@ -184,7 +184,7 @@
                             <i class="bi bi-speedometer2"></i> Dashboard
                         </a>
                     </li>
-                    <?php if($isAdmin): ?>
+                    <?php if ($isAdmin): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('admin/especies') ?>">
                             <i class="bi bi-tree"></i> Especies

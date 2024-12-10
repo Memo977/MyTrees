@@ -162,6 +162,21 @@
         color: #a5aeff !important;
     }
 
+    .dropdown-menu {
+        background: rgba(45, 45, 45, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dropdown-item {
+        color: #ffffff;
+    }
+
+    .dropdown-item:hover {
+        background: rgba(92, 107, 192, 0.2);
+        color: #a5aeff;
+    }
+
     @keyframes fadeIn {
         from {
             opacity: 0;

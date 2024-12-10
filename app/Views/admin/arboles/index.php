@@ -140,7 +140,6 @@
         background-color: rgba(108, 117, 125, 0.9) !important;
     }
 
-    /* Navbar */
     .navbar {
         background: rgba(45, 45, 45, 0.9) !important;
         backdrop-filter: blur(10px);
@@ -170,71 +169,14 @@
         background: rgba(92, 107, 192, 0.2);
         color: #a5aeff;
     }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
     </style>
 </head>
 
 <body>
     <div class="page-overlay"></div>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="<?= base_url('admin/dashboard') ?>">
-                <i class="bi bi-tree"></i> Un Millón de Árboles
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">
-                            <i class="bi bi-speedometer2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/especies') ?>">
-                            <i class="bi bi-tree"></i> Especies
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<?= base_url('admin/arboles') ?>">
-                            <i class="bi bi-flower1"></i> Árboles
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/amigos') ?>">
-                            <i class="bi bi-people"></i> Amigos
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle"></i> <?= session()->get('nombre') ?>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="<?= base_url('logout') ?>">
-                                    <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-                                </a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?= view('/componentes/adminNavbar', ['baseRoute' => 'admin']) ?>
+
 
     <div class="container">
         <div class="page-header">

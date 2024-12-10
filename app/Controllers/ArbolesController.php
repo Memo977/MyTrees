@@ -86,7 +86,7 @@ class ArbolesController extends BaseController
         $from = $this->request->getGet('from');
         $usuario_id = $this->request->getGet('usuario_id');
 
-        // Construir la URL de redirección
+        // Crea la URL de redirección
         $redirect_to = 'admin/arboles';
         if ($from === 'amigos' && $usuario_id) {
             $redirect_to = "admin/amigos/arboles/{$usuario_id}";
@@ -133,7 +133,7 @@ class ArbolesController extends BaseController
         }
 
         if ($this->arbolModel->update($id, $data)) {
-            // Obtener la URL de redirección del formulario
+            // Obtiene la URL de redirección del formulario
             $redirect_to = $this->request->getPost('redirect_to') ?? 'admin/arboles';
             return redirect()->to($redirect_to)->with('success', 'Árbol actualizado exitosamente');
         }
@@ -167,12 +167,10 @@ class ArbolesController extends BaseController
     }
 
 
-    // Método para listar los árboles del usuario
     public function misArboles()
     {
         $usuario_id = $this->session->get('user_id');
 
-        // Obtener los árboles del usuario con información de la especie
         $data = [
             'trees' => $this->arbolModel->select('arboles.*, especies.nombre_comercial')
                 ->join('especies', 'especies.id = arboles.especie_id')
@@ -184,25 +182,21 @@ class ArbolesController extends BaseController
         return view('amigo/arboles/index', $data);
     }
 
-    // Método para ver el detalle de un árbol específico
     public function detalle($id = null)
     {
         $usuario_id = $this->session->get('user_id');
 
-        // Obtener el árbol con información de la especie
         $arbol = $this->arbolModel->select('arboles.*, especies.nombre_comercial, especies.nombre_cientifico')
             ->join('especies', 'especies.id = arboles.especie_id')
             ->where('arboles.id', $id)
             ->where('arboles.usuario_id', $usuario_id)
             ->first();
 
-        // Verificar si el árbol existe y pertenece al usuario
         if (!$arbol) {
             return redirect()->to('amigo/arboles')
                 ->with('error', 'Árbol no encontrado o no tienes permiso para verlo');
         }
 
-        // Obtener el historial de actualizaciones del árbol
         $historial = $this->actualizacionModel->where('arbol_id', $id)
             ->orderBy('fecha_actualizacion', 'DESC')
             ->findAll();
@@ -214,8 +208,6 @@ class ArbolesController extends BaseController
 
         return view('amigo/arboles/detalle', $data);
     }
-
-    // Método auxiliar para mostrar imágenes
     public function getImage($filename)
     {
         if (!empty($filename)) {
@@ -229,8 +221,7 @@ class ArbolesController extends BaseController
             }
         }
 
-        // Imagen por defecto si no se encuentra la solicitada
-        $defaultPath = ROOTPATH . 'public/assets/img/tree-default.jpg';
+        $defaultPath = ROOTPATH . 'public/assets/img/arbolDefault.jpg';
         $mime = mime_content_type($defaultPath);
         header('Content-Type: ' . $mime);
         header('Content-Length: ' . filesize($defaultPath));
@@ -241,7 +232,6 @@ class ArbolesController extends BaseController
     // Método para mostrar árboles disponibles para compra
     public function disponibles()
     {
-        // Obtener los árboles disponibles con información de la especie
         $data = [
             'trees' => $this->arbolModel->select('arboles.*, especies.nombre_comercial, especies.nombre_cientifico')
                 ->join('especies', 'especies.id = arboles.especie_id')
@@ -256,7 +246,6 @@ class ArbolesController extends BaseController
     // Método para mostrar formulario de compra
     public function comprar($id = null)
     {
-        // Obtener el árbol con información de la especie
         $arbol = $this->arbolModel->select('arboles.*, especies.nombre_comercial, especies.nombre_cientifico')
             ->join('especies', 'especies.id = arboles.especie_id')
             ->where('arboles.id', $id)
@@ -264,7 +253,6 @@ class ArbolesController extends BaseController
             ->where('arboles.usuario_id IS NULL')
             ->first();
 
-        // Verificar si el árbol existe y está disponible
         if (!$arbol) {
             return redirect()->to('amigo/arboles/disponibles')
                 ->with('error', 'Árbol no disponible para compra');
@@ -277,13 +265,11 @@ class ArbolesController extends BaseController
         return view('amigo/arboles/comprar', $data);
     }
 
-    // Método para procesar la compra
     public function confirmarCompra()
     {
         $arbol_id = $this->request->getPost('arbol_id');
         $usuario_id = $this->session->get('user_id');
 
-        // Verificar que el árbol exista y esté disponible
         $arbol = $this->arbolModel->select('*')
             ->where('id', $arbol_id)
             ->where('estado', 'Disponible')
@@ -295,7 +281,6 @@ class ArbolesController extends BaseController
                 ->with('error', 'El árbol ya no está disponible para compra');
         }
 
-        // Actualizar el árbol
         $this->arbolModel->update($arbol_id, [
             'estado' => 'Vendido',
             'usuario_id' => $usuario_id,

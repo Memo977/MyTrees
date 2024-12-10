@@ -20,9 +20,11 @@ class AmigoController extends BaseController
 
     protected function prepareBaseData()
     {
+        $rol_id = session()->get('rol_id');
         return [
-            'isAdmin' => session()->get('rol_id') == 1,
-            'baseRoute' => session()->get('rol_id') == 1 ? 'admin' : 'operador'
+            'isAdmin' => $rol_id == 1,
+            'isAmigo' => $rol_id == 3,
+            'baseRoute' => $rol_id == 1 ? 'admin' : ($rol_id == 3 ? 'amigo' : 'operador')
         ];
     }
 

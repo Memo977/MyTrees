@@ -35,8 +35,8 @@ $routes->group('admin', ['filter' => 'auth:1'], function($routes) {
     $routes->get('amigos/historial/(:num)', 'AmigoController::historial/$1');
     $routes->get('staff', 'UsuarioController::staffList');
     $routes->get('staff/create', 'UsuarioController::createStaff');
-    $routes->get('staff/edit/(:num)', 'UsuarioController::editStaff/$1');
-    $routes->post('staff/edit/(:num)', 'UsuarioController::editStaff/$1');
+    $routes->get('staff/edit/(:num)', 'UsuarioController::edit/$1');
+    $routes->post('staff/update/(:num)', 'UsuarioController::update/$1');
     $routes->get('staff/delete/(:num)', 'UsuarioController::deleteStaff/$1');
     $routes->get('historial', 'HistorialController::index');
 });
@@ -58,7 +58,8 @@ $routes->group('amigo', ['filter' => 'auth:3'], function($routes) {
     $routes->get('arboles/disponibles', 'ArbolesController::disponibles');
     $routes->get('arboles/comprar/(:num)', 'ArbolesController::comprar/$1');
     $routes->post('arboles/confirmar-compra', 'ArbolesController::confirmarCompra');
-    
+    $routes->get('perfil', 'PerfilController::index');
+    $routes->post('perfil/update', 'PerfilController::update');
 });
 
 $routes->get('shared/unauthorized/index', function() {
