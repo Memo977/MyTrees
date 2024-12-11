@@ -1,0 +1,253 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+        url('https://www.arenalobservatorylodge.com/wp-content/uploads/2023/01/Volcan-Arenal-4.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.page-header {
+    background: rgba(45, 45, 45, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.page-header h2 {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    font-weight: 600;
+}
+
+.card {
+    background: rgba(45, 45, 45, 0.85);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background: rgba(35, 35, 35, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px 15px 0 0 !important;
+    padding: 1rem 1.5rem;
+}
+
+.card-header h4 {
+    color: #ffffff;
+    margin: 0;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.img-fluid {
+    border-radius: 10px;
+    max-height: 300px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.tree-placeholder {
+    background: rgba(35, 35, 35, 0.5);
+    height: 300px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-unstyled {
+    margin-bottom: 0;
+}
+
+.list-unstyled li {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.list-unstyled li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.list-label {
+    display: block;
+    color: #adb5bd;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+.list-value {
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+.price-value {
+    color: #0dcaf0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.alert-info {
+    background-color: rgba(23, 64, 97, 0.9);
+    border: none;
+    color: #b6d8ef;
+    border-radius: 10px;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+.navbar {
+    background: rgba(45, 45, 45, 0.9) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-brand,
+.nav-link {
+    color: #ffffff !important;
+}
+
+.nav-link:hover {
+    color: #a5aeff !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:hover {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.2);
+}
+
+/* Estilos para el menú responsive */
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        padding: 1rem 0;
+    }
+
+    .navbar-nav .nav-item {
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-nav .nav-item:last-child {
+        border-bottom: none;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    /* Para el dropdown de admin */
+    .navbar-nav .dropdown-menu {
+        background: rgba(35, 35, 35, 0.95);
+        margin: 0.5rem 0;
+        padding: 0.5rem 0;
+    }
+
+    /* Para los iconos si los tienes */
+    .nav-link i,
+    .nav-link .bi {
+        width: 20px;
+        text-align: center;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-nav .nav-item:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .navbar-nav .nav-link:hover {
+        transition: all 0.3s ease;
+    }
+}
+
+.dropdown-menu {
+    background: rgba(45, 45, 45, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item {
+    color: #ffffff;
+}
+
+.dropdown-item:hover {
+    background: rgba(92, 107, 192, 0.2);
+    color: #a5aeff;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scientific-name {
+    font-style: italic;
+    color: #adb5bd;
+}

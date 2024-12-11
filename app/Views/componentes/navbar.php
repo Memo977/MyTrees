@@ -72,13 +72,6 @@ $baseRoute = $baseRoute ?? 'operador';
                         <i class="bi bi-person-circle"></i> <?= session()->get('nombre') ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <?php if($isAmigo): ?>
-                        <li>
-                            <a class="dropdown-item" href="<?= base_url($baseRoute . '/perfil') ?>">
-                                <i class="bi bi-person"></i> Mi Perfil
-                            </a>
-                        </li>
-                        <?php endif; ?>
                         <li>
                             <a class="dropdown-item" href="<?= base_url('logout') ?>">
                                 <i class="bi bi-box-arrow-right"></i> Cerrar Sesión

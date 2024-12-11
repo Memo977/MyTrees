@@ -1,0 +1,233 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+    url("https://www.arenalobservatorylodge.com/wp-content/uploads/2023/01/Volcan-Arenal-4.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.card {
+    background: rgba(45, 45, 45, 0.85);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.table {
+    color: #e0e0e0;
+    margin-bottom: 0;
+}
+
+.table th {
+    background-color: rgba(61, 61, 61, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.table td {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.table tbody tr {
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(92, 107, 192, 0.1);
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover td em {
+    color: #e0e0e0 !important;
+}
+
+.table-hover tbody tr:hover td em {
+    color: #a5aeff !important;
+}
+
+.btn-primary {
+    background-color: rgba(92, 107, 192, 0.9);
+    border-color: transparent;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: rgba(63, 81, 181, 0.95);
+    border-color: transparent;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: rgba(220, 53, 69, 0.9);
+    border-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: rgba(200, 35, 51, 0.95);
+    transform: translateY(-2px);
+}
+
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.alert-success {
+    background-color: rgba(28, 74, 28, 0.9);
+    border-color: rgba(39, 105, 39, 0.5);
+    color: #9aff9a;
+}
+
+.page-header {
+    background: rgba(45, 45, 45, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.page-header h2 {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+.table-responsive {
+    border-radius: 10px;
+}
+
+.bi {
+    margin-right: 0.25rem;
+}
+
+.buttons-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar {
+    background: rgba(45, 45, 45, 0.9) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-brand,
+.nav-link {
+    color: #ffffff !important;
+}
+
+.nav-link:hover {
+    color: #a5aeff !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:hover {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.2);
+}
+
+/* Estilos para el menú responsive */
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        padding: 1rem 0;
+    }
+
+    .navbar-nav .nav-item {
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-nav .nav-item:last-child {
+        border-bottom: none;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    /* Para el dropdown de admin */
+    .navbar-nav .dropdown-menu {
+        background: rgba(35, 35, 35, 0.95);
+        margin: 0.5rem 0;
+        padding: 0.5rem 0;
+    }
+
+    /* Para los iconos si los tienes */
+    .nav-link i,
+    .nav-link .bi {
+        width: 20px;
+        text-align: center;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-nav .nav-item:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .navbar-nav .nav-link:hover {
+        transition: all 0.3s ease;
+    }
+}
+
+.dropdown-menu {
+    background: rgba(45, 45, 45, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item {
+    color: #ffffff;
+}
+
+.dropdown-item:hover {
+    background: rgba(92, 107, 192, 0.2);
+    color: #a5aeff;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeIn 0.5s ease-out;
+}

@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link href="<?= base_url('assets/css/main.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/amigo/arboles/detalle.css') ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -19,7 +19,7 @@
     <div class="container">
         <div class="page-header">
             <div class="d-flex justify-content-between align-items-center">
-                <h2>Detalles del Árbol</h2>
+                <h2>Detalles</h2>
                 <a href="<?= base_url('amigo/arboles') ?>" class="btn-volver">
                     <i class="bi bi-arrow-left me-2"></i> Volver
                 </a>

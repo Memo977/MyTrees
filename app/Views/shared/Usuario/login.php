@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link href="<?= base_url('assets/css/layouts/_auth.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/shared/usuario/login.css') ?>" rel="stylesheet">
 </head>
 
 <body>

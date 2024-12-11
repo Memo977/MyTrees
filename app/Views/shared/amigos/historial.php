@@ -7,7 +7,7 @@
     <title>Historial de Actualizaciones - <?= esc($arbol['nombre_comercial']) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="<?= base_url('assets/css/main.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/shared/amigos/historial.css') ?>" rel="stylesheet">
 </head>
 
 <body>

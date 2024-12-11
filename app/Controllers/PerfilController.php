@@ -24,48 +24,47 @@ class PerfilController extends BaseController
         if (!$this->session->has('user_id')) {
             return redirect()->to('/login');
         }
-
+    
         $userId = $this->session->get('user_id');
-
-        // Obtener información del perfil del usuario Amigo
+    
+        // Obtener información del perfil del usuario
         $profile = $this->db->table('usuarios')
             ->select('usuarios.*, roles.nombre as rol_nombre')
             ->join('roles', 'roles.id = usuarios.rol_id')
             ->where('usuarios.id', $userId)
             ->get()
             ->getRow();
-
+    
         if (!$profile) {
             return redirect()->to('/login')
                 ->with('error_message', 'Usuario no encontrado');
         }
-
+    
         // Contar árboles del usuario
         $arboles_propios = $this->db->table('arboles')
             ->where('usuario_id', $userId)
             ->countAllResults();
-
+    
         // Obtener última actualización
         $ultima_actualizacion = $this->db->table('actualizaciones_arboles as act')
-            ->select('act.created_at')
+            ->select('act.fecha_actualizacion as ultima_fecha')
             ->join('arboles as a', 'a.id = act.arbol_id')
             ->where('a.usuario_id', $userId)
-            ->orderBy('act.created_at', 'DESC')
+            ->orderBy('act.fecha_actualizacion', 'DESC')
             ->limit(1)
             ->get()
             ->getRow();
-
+    
         $data = [
             'profile' => $profile,
             'stats' => [
                 'arboles_propios' => $arboles_propios,
-                'ultima_actualizacion' => $ultima_actualizacion ? $ultima_actualizacion->created_at : null
+                'ultima_actualizacion' => $ultima_actualizacion ? $ultima_actualizacion->ultima_fecha : null
             ]
         ];
-
+    
         return view('amigo/perfil', $data);
     }
-
     public function update()
     {
         if (!$this->session->has('user_id')) {

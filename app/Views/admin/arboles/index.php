@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link href="<?= base_url('assets/css/main.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/admin/arboles/index.css') ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -65,7 +65,7 @@
                                 <td><?= esc($tree['ubicacion_geografica']) ?></td>
                                 <td>
                                     <span
-                                        class="badge bg-<?= $tree['estado'] == 'Disponible' ? 'success' : 'secondary' ?>">
+                                        class="badge bg-<?= $tree['estado'] == 'disponible' ? 'success' : 'danger' ?>">
                                         <?= esc($tree['estado']) ?>
                                     </span>
                                 </td>

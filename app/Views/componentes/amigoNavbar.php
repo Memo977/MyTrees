@@ -31,9 +31,6 @@
                         <i class="bi bi-person-circle"></i> <?= session()->get('nombre') ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="<?= base_url('amigo/perfil') ?>">
-                                <i class="bi bi-person"></i> Mi Perfil
-                            </a></li>
                         <li><a class="dropdown-item" href="<?= base_url('logout') ?>">
                                 <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
                             </a></li>
