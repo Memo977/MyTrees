@@ -1,0 +1,14 @@
+CRITICAL - 2024-12-10 19:53:45 --> ErrorException: Undefined variable $data
+[Method: GET, Route: admin/historial]
+in APPPATH\Views\shared\historial\index.php on line 19.
+ 1 APPPATH\Views\shared\historial\index.php(19): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'D:\\Proyecto\\app\\Views\\shared\\historial\\index.php', 19)
+ 2 SYSTEMPATH\View\View.php(234): include('D:\\Proyecto\\app\\Views\\shared\\historial\\index.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('shared/historial/index', [], true)
+ 5 APPPATH\Controllers\HistorialController.php(26): view('shared/historial/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\HistorialController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\HistorialController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

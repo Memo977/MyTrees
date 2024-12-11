@@ -10,31 +10,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link href="<?= base_url('assets/css/adminDashboard.css') ?>" rel="stylesheet">
-    <style>
-    .form-select {
-        background-color: rgba(61, 61, 61, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: #ffffff;
-    }
-
-    .form-select:focus {
-        background-color: rgba(61, 61, 61, 0.9);
-        border-color: rgba(92, 107, 192, 0.5);
-        color: #ffffff;
-        box-shadow: 0 0 0 0.25rem rgba(92, 107, 192, 0.25);
-    }
-
-    .form-select option {
-        background-color: #2d2d2d;
-        color: #ffffff;
-    }
-    </style>
+    <link href="<?= base_url('assets/css/main.css') ?>" rel="stylesheet">
 </head>
 
 <body>
-    <div class="page-overlay"></div>
-    <!-- Navbar -->
+
     <?= view('/componentes/adminNavbar', ['baseRoute' => 'admin']) ?>
 
     <div class="container mt-4">

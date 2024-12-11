@@ -118,7 +118,7 @@ class UsuarioController extends BaseController
     public function logout()
     {
         $this->session->destroy();
-        return redirect()->to('/login'); // Corregido también aquí
+        return redirect()->to('/login');
     }
 
     public function edit($id)

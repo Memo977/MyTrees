@@ -1,0 +1,41 @@
+.especie-card {
+    margin-bottom: var(--spacing-md);
+    transition: var(--transition-default);
+}
+
+.especie-nombre-cientifico {
+    font-style: italic;
+    color: var(--scientific-name);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.especie-info {
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: var(--bg-lighter);
+    border-radius: var(--border-radius-sm);
+}
+
+.especie-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+}
+
+.especie-stat-item {
+    text-align: center;
+    padding: var(--spacing-xs);
+}
+
+.especie-stat-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.especie-stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}

@@ -16,7 +16,6 @@ class UsuarioModel extends Model
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
 
-    // Reglas base para validación
     protected $validationRules = [
         'nombre' => 'required|min_length[3]|max_length[50]',
         'apellidos' => 'required|max_length[100]',
@@ -26,7 +25,6 @@ class UsuarioModel extends Model
         'pais' => 'permit_empty|max_length[100]',
     ];
 
-    // Mensajes de validación personalizados
     protected $validationMessages = [
         'nombre' => [
             'required' => 'El nombre es requerido',
@@ -62,7 +60,6 @@ class UsuarioModel extends Model
         return $data;
     }
 
-    // Establece reglas adicionales solo para la inserción
     protected function setValidationRulesForInsert(array $data)
     {
         $this->validationRules['password'] = 'required|min_length[6]';
@@ -82,7 +79,6 @@ class UsuarioModel extends Model
 
     public function updateUser($id, $data)
     {
-        // Obtener usuario actual
         $currentUser = $this->find($id);
 
         // Verificar si el email ha cambiado
@@ -103,7 +99,7 @@ class UsuarioModel extends Model
             unset($this->validationRules['rol_id']);
         }
 
-        // Hacer los campos no esenciales opcionales para actualizaciones
+
         $this->validationRules['telefono'] = 'permit_empty|max_length[20]';
         $this->validationRules['direccion'] = 'permit_empty';
         $this->validationRules['pais'] = 'permit_empty|max_length[100]';
@@ -114,23 +110,17 @@ class UsuarioModel extends Model
 
     public function updatePerfil($id, $data)
     {
-        // Obtener usuario actual
         $currentUser = $this->find($id);
 
-        // Asegurarnos que no se pueda modificar el rol
         if (isset($data['rol_id'])) {
             unset($data['rol_id']);
         }
 
-        // Verificar si el email ha cambiado
         if (isset($data['email']) && $data['email'] === $currentUser['email']) {
-            // Si el email es el mismo, lo removemos de los datos a actualizar
             unset($data['email']);
-            // También removemos la validación del email
             unset($this->validationRules['email']);
         }
 
-        // Establecer reglas de validación específicas para perfil
         $this->validationRules = [
             'nombre' => 'required|min_length[3]|max_length[50]',
             'apellidos' => 'required|max_length[100]',
@@ -139,19 +129,16 @@ class UsuarioModel extends Model
             'pais' => 'permit_empty|max_length[100]'
         ];
 
-        // Si hay un nuevo email, agregar su validación
         if (isset($data['email'])) {
             $this->validationRules['email'] = 'required|valid_email|max_length[100]|is_unique[usuarios.email,id,{id}]';
         }
 
-        // Si hay nueva contraseña, agregar su validación
         if (!empty($data['password'])) {
             $this->validationRules['password'] = 'min_length[6]';
         } else {
             unset($data['password']);
         }
 
-        // Intentar actualizar
         return $this->update($id, $data);
     }
 }

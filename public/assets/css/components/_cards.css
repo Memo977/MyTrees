@@ -1,0 +1,44 @@
+.card {
+    background: var(--bg-dark);
+    backdrop-filter: var(--blur-effect);
+    border: none;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition-default);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background-color: var(--bg-lighter);
+    border-bottom: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0 !important;
+    padding: var(--spacing-md);
+}
+
+.card-title {
+    color: var(--text-primary);
+    margin: 0;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card-body {
+    padding: var(--spacing-lg);
+}
+
+/* Cards específicas */
+.tree-card {
+    width: 280px;
+    margin: 0 auto;
+}
+
+.tree-card .card-img-top {
+    height: 160px;
+    object-fit: cover;
+    border-top-left-radius: var(--border-radius-md);
+    border-top-right-radius: var(--border-radius-md);
+}

@@ -1,0 +1,26 @@
+.alert {
+    border-radius: var(--border-radius-sm);
+    border: none;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.alert-success {
+    background-color: rgba(28, 74, 28, 0.9);
+    border-color: rgba(39, 105, 39, 0.5);
+    color: #9aff9a;
+}
+
+.alert-danger {
+    background-color: rgba(74, 28, 28, 0.9);
+    border-color: rgba(105, 39, 39, 0.5);
+    color: #ff9a9a;
+}
+
+.alert-info {
+    background-color: rgba(23, 64, 97, 0.9);
+    color: #b6d8ef;
+}
+
+.alert-dismissible .btn-close {
+    color: var(--text-primary);
+}

@@ -1,0 +1,82 @@
+/* Estilos para cards de árboles */
+.tree-card {
+    width: 280px;
+    margin: 0 auto;
+}
+
+.tree-info {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.tree-info i {
+    width: 20px;
+    color: var(--text-muted);
+    margin-right: 8px;
+}
+
+.tree-info p {
+    margin-bottom: 0.5rem;
+}
+
+.price-tag {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #0dcaf0;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.price-tag i {
+    margin-right: 0.5rem;
+}
+
+/* Vista de detalles */
+.tree-details {
+    margin-bottom: var(--spacing-lg);
+}
+
+.tree-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.tree-stat-item {
+    padding: var(--spacing-sm);
+    background: var(--bg-lighter);
+    border-radius: var(--border-radius-sm);
+    text-align: center;
+}
+
+.tree-stat-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.tree-stat-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: var(--spacing-xs);
+}
+
+/* Actualizaciones */
+.update-section {
+    margin-top: var(--spacing-lg);
+}
+
+.no-updates-message {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--text-muted);
+}
+
+.no-updates-message i {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+}

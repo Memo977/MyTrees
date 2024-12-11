@@ -1,0 +1,26 @@
+/* Importar todos los archivos CSS */
+@import 'config/_variables.css';
+@import 'config/_animations.css';
+
+@import 'base/_reset.css';
+@import 'base/_typography.css';
+@import 'base/_utilities.css';
+
+@import 'components/_alerts.css';
+@import 'components/_badges.css';
+@import 'components/_buttons.css';
+@import 'components/_cards.css';
+@import 'components/_forms.css';
+@import 'components/_images.css';
+@import 'components/_navbar.css';
+@import 'components/_tables.css';
+@import 'components/_unauthorized.css';
+
+@import 'layouts/_auth.css';
+@import 'layouts/_page.css';
+
+@import 'modules/_arboles.css';
+@import 'modules/_especies.css';
+@import 'modules/_amigos.css';
+@import 'modules/_perfil.css';
+@import 'modules/_historial.css';

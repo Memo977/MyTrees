@@ -1,4 +1,6 @@
-<nav class="navbar navbar-expand-lg">
+<?php
+$baseRoute = $baseRoute ?? 'operador';
+?><nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a class="navbar-brand" href="<?= base_url($baseRoute . '/dashboard') ?>">
             <i class="bi bi-tree"></i> Un Millón de Árboles

@@ -9,18 +9,18 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('amigo/dashboard') ?>">
-                        <i class="bi bi-speedometer2"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active" href="<?= base_url('amigo/arboles') ?>">
                         <i class="bi bi-tree"></i> Mis Árboles
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('amigo/arboles-disponibles') ?>">
+                    <a class="nav-link" href="<?= base_url('amigo/arboles/disponibles') ?>">
                         <i class="bi bi-shop"></i> Comprar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url($baseRoute . '/perfil') ?>">
+                        <i class="bi bi-person-circle"></i> Mi Perfil
                     </a>
                 </li>
             </ul>
