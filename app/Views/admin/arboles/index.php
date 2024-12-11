@@ -65,7 +65,7 @@
                                 <td><?= esc($tree['ubicacion_geografica']) ?></td>
                                 <td>
                                     <span
-                                        class="badge bg-<?= $tree['estado'] == 'disponible' ? 'success' : 'danger' ?>">
+                                        class="badge bg-<?= $tree['estado'] == 'Disponible' ? 'success' : 'danger' ?>">
                                         <?= esc($tree['estado']) ?>
                                     </span>
                                 </td>
